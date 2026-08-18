@@ -1,5 +1,24 @@
 
 
+## [Unreleased]
+
+> Entries below are maintained by hand ahead of the next `npm run release` run
+> (this repo's release tooling auto-generates dated sections with commit
+> links from conventional-commit history; these haven't been committed/tagged
+> yet, so there's nothing to link to).
+
+### Features
+
+* **holdings:** add authenticated `GET /api/v1/holdings` returning the caller's metal holdings aggregated per asset type (gold/silver/platinum) for the dashboard, plus CRUD scaffolding, all scoped to the authenticated user (ownership can't be spoofed via the request body; other users' holdings 404 instead of 403)
+* **auth:** JWT payload now includes `email` alongside `id`/`role`
+* **security:** add global rate limiting (`@nestjs/throttler`, 200 requests/minute per IP by default) on top of the existing helmet/CORS setup
+
+### Docs
+
+* **readme:** document the `MAIL_HOST` Docker-vs-local mismatch (mirrors the existing `DATABASE_URL` note) and add `maildev` to the local setup steps — email flows and `test:e2e` silently need it
+* **readme:** note the default API rate limit so a `429` during manual testing isn't a surprise
+* **docs:** add [docs/HAPPY_PATH.md](docs/HAPPY_PATH.md), a manual end-to-end walkthrough (signup → login → view holdings → acquire an asset → view holdings again, plus edge cases), referenced from the README
+
 ## [1.2.0](https://github.com/brocoders/nestjs-boilerplate/compare/1.1.0...1.2.0) (2024-06-05)
 
 

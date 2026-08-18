@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { UsersModule } from './users/users.module';
 import { FilesModule } from './files/files.module';
 import { AuthModule } from './auth/auth.module';
@@ -24,8 +26,11 @@ const infrastructureDatabaseModule = MongooseModule.forRootAsync({
   useClass: MongooseConfigService,
 });
 
+import { HoldingsModule } from './holdings/holdings.module';
+
 @Module({
   imports: [
+    HoldingsModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [
@@ -39,6 +44,14 @@ const infrastructureDatabaseModule = MongooseModule.forRootAsync({
       envFilePath: ['.env'],
     }),
     infrastructureDatabaseModule,
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 200,
+        },
+      ],
+    }),
     I18nModule.forRootAsync({
       useFactory: (configService: ConfigService<AllConfigType>) => ({
         fallbackLanguage: configService.getOrThrow('app.fallbackLanguage', {
@@ -70,6 +83,12 @@ const infrastructureDatabaseModule = MongooseModule.forRootAsync({
     MailModule,
     MailerModule,
     HomeModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule {}
