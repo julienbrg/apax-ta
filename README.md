@@ -1,5 +1,14 @@
 # APAX Tech Assessment
 
+## Structure
+
+This repo covers all three assessment sections, each self-contained with its own dependencies:
+
+- **[src/](src/)** — Backend. NestJS + MongoDB API (auth, JWT, holdings). Runs at the repo root — see Setup/Run below.
+- **[ui/](ui/)** — Frontend. Next.js app consuming the API above.
+- **[contracts/](contracts/)** — Blockchain. Solidity contracts, Foundry.
+
+Each of `ui/` and `contracts/` has its own README with setup/run instructions.
 
 ## Setup
 
