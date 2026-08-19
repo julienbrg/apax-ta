@@ -1,0 +1,5 @@
+forge-std/=lib/forge-std/src/
+@onchain-id/solidity/=lib/onchain-id-solidity/
+@tokenysolutions/t-rex/=lib/T-REX/
+@openzeppelin/contracts/=lib/openzeppelin-contracts-4.8.3/contracts/
+@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable-4.8.3/contracts/
